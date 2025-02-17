@@ -49,4 +49,4 @@ def handle_connect():
     emit('props_updated', load_props())
 
 if __name__ == '__main__':
-    socketio.run(app,origins=["https://poc-react-snowy.vercel.app", "https://localhost"], debug=True)
+    socketio.run(app,origins=["https://poc-react-snowy.vercel.app", "https://localhost"],  host='0.0.0.0', debug=True, allow_unsafe_werkzeug=True)  # For development only
