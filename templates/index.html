@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .feature-list {
+            margin: 20px 0;
+        }
+        .cta-button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="template-content">
+        <h1>{{ title }}</h1>
+        <p>{{ description }}</p>
+
+        <div class="feature-list">
+            <h2>Features:</h2>
+            <ul>
+                {% for feature in features %}
+                    <li>{{ feature }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if showCTA %}
+            <button class="cta-button">{{ ctaText }}</button>
+        {% endif %}
+    </div>
+
+    <script>
+        const socket = io('http://localhost:5000');
+        
+        socket.on('props_updated', (props) => {
+            // Update the DOM with new props
+            updateTemplate(props);
+        });
+
+        function updateTemplate(props) {
+            document.title = props.title;
+            
+            const content = document.getElementById('template-content');
+            content.innerHTML = `
+                <h1>${props.title}</h1>
+                <p>${props.description}</p>
+                
+                <div class="feature-list">
+                    <h2>Features:</h2>
+                    <ul>
+                        ${props.features.map(feature => `<li>${feature}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                ${props.showCTA ? `<button class="cta-button">${props.ctaText}</button>` : ''}
+            `;
+        }
+    </script>
+</body>
+</html>

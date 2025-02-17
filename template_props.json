@@ -1,0 +1,12 @@
+{
+  "title": "Welcome to python Jinja template",
+  "description": "This is a sample description",
+  "features": [
+    "Feature 1",
+    "Feature 2",
+    "Feature 3",
+    "Feature 4"
+  ],
+  "showCTA": true,
+  "ctaText": "Click Me too"
+}
