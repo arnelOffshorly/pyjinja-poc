@@ -54,5 +54,4 @@ if __name__ == '__main__':
         host='0.0.0.0',
         debug=True,
         allow_unsafe_werkzeug=True,
-        cors_allowed_origins=["https://poc-react-snowy.vercel.app", "https://localhost"]
     )  # For development only
